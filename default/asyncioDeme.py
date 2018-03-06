@@ -8,16 +8,16 @@ import threading
 
 # Demo 1
 
-@asyncio.coroutine
-def hello():
-    print('Hello world! (%s)' % threading.currentThread)
-    yield from asyncio.sleep(1)
-    print('hello again! (%s)' % threading.currentThread)
-
-
-loop = asyncio.get_event_loop()
-tasks = [hello(), hello()]
-loop.run_until_complete(asyncio.wait(tasks))
+# @asyncio.coroutine
+# def hello():
+#     print('Hello world! (%s)' % threading.currentThread)
+#     yield from asyncio.sleep(1)
+#     print('hello again! (%s)' % threading.currentThread)
+#
+#
+# loop = asyncio.get_event_loop()
+# tasks = [hello(), hello()]
+# loop.run_until_complete(asyncio.wait(tasks))
 
 
 # Demo 2
@@ -29,6 +29,7 @@ def wget(host):
     connect = asyncio.open_connection(host, 80)
     reader, writer = yield from connect
     header = 'GET /HTTP/1.0\r\nHost: %s\r\n\r\n' % host
+    writer.write(header.encode('utf-8'))
     yield from writer.drain()
     while True:
         line = yield from reader.readline()
