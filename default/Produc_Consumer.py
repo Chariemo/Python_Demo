@@ -18,7 +18,7 @@ def consumer():
 def produce(c):
 
     c.send(None)
-    n = 0;
+    n = 0
 
     while n < 5:
         n += 1
